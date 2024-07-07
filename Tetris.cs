@@ -196,6 +196,29 @@ namespace Tetris
             Console.WriteLine(mapPrinter());
         }
 
+        private void lineDelete(int line)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+
+                map[line, i] = 0;
+                
+            }
+
+            for (int i = line; i > -1; i--)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (i - 1 > -1)
+                    {
+
+                    map[i, j] = map[i - 1, j];
+                    }
+                }
+            }
+
+        }
+
         private string mapPrinter()
         {
             StringBuilder sb = new StringBuilder();
@@ -203,7 +226,7 @@ namespace Tetris
 
             for (int i = 0; i < 10; i++)
             {
-
+                int counter = 0;
                 for (int j = 0; j < 10; j++)
                 {
 
@@ -213,10 +236,19 @@ namespace Tetris
                     }
                     else
                     {
+
                         sb.Append("█");
+                        counter++;
                     }
 
+                   
+
                 }
+                if (counter == 10)
+                {
+                    lineDelete(i);
+                }
+
                 sb.AppendLine();
 
             }
