@@ -12,16 +12,33 @@ namespace Tetris
         int[,] map = new int[10, 10] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
         Random rng = new Random();
+            bool game = true;
         public Tetris()
         {
 
 
-            while (true)
+            while (game)
             {
                 tickExec();
                 play();
+                winValdiation();
             }
         }
+
+        private void winValdiation()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+
+                if (map[0, i] == 1)
+                {
+                    Console.WriteLine("Fim de jogo");
+                    game = false;
+                }
+                
+            }
+        }
+
 
         private void play()
         {
@@ -34,7 +51,7 @@ namespace Tetris
                     linha();
                     break;
                 case 1:
-                    Console.WriteLine("tinvertido");
+                    tInvertido();
                     break;
                 case 2:
                     canto();
@@ -44,6 +61,38 @@ namespace Tetris
             }
         }
 
+
+        private void tInvertido()
+        {
+            int tick = 0;
+
+            int descend = 0;
+            bool end = false;
+            while (!end)
+            {
+                tick++;
+                if (tick == 270000000)
+                {
+                    map[0 + descend, 4] = 1;
+                    map[1 + descend, 3] = 1;
+                    map[1 + descend, 4] = 1;
+                    map[1 + descend, 5] = 1;
+
+                    tickExec();
+                    if (1 + descend == 9 || map[2 + descend, 4] == 1)
+                    {
+                        end = true;
+                        break;
+                    }
+                    map[0 + descend, 4] = 0;
+                    map[1 + descend, 3] = 0;
+                    map[1 + descend, 4] = 0;
+                    map[1 + descend, 5] = 0;
+                    descend++;
+                    tick = 0;
+                }
+            }
+        }
 
         private void canto()
         {
