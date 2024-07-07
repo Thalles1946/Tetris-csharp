@@ -9,25 +9,17 @@ namespace Tetris
     internal class Tetris
     {
 
-        int[,] map = new int[10, 10] { { 0,0,0, 0, 0, 0, 0, 0, 0, 0}, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0,0,0, 0, 0, 0, 0, 0, 0, 0}, { 0,0,0, 0, 0, 0, 0, 0, 0, 0}, { 0,0,0, 0, 0, 0, 0, 0, 0, 0}, { 0,0,0, 0, 0, 0, 0, 0, 0, 0}, { 0,0,0, 0, 0, 0, 0, 0, 0, 0}, { 0,0,0, 0, 0, 0, 0, 0, 0, 0} };
+        int[,] map = new int[10, 10] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
         Random rng = new Random();
         public Tetris()
         {
 
-            int tick = 0;
 
             while (true)
             {
-                tick++;
-
-                if (tick == 170000000)
-                {
-                    tickExec();
-                    play();
-                    tick = 0;
-                }
-                
+                tickExec();
+                play();
             }
         }
 
@@ -42,37 +34,74 @@ namespace Tetris
                     linha();
                     break;
                 case 1:
-                    Console.WriteLine("t invertido");
+                    Console.WriteLine("tinvertido");
                     break;
                 case 2:
-                    Console.WriteLine("canto");
+                    canto();
                     break;
                 default:
                     break;
             }
         }
 
-        private void linha()
+
+        private void canto()
         {
+            int tick = 0;
+
             int descend = 0;
             bool end = false;
             while (!end)
             {
-                map[0 + descend, 0 ] = 1;
-                map[1 + descend, 0] = 1;
-                map[2 + descend, 0] = 1;
-
-                tickExec();
-                if (2+descend==9 || map[3 + descend, 0] ==1)
+                tick++;
+                if (tick == 270000000)
                 {
-                    end = true;
-                    break;
-                }
-                map[0 + descend, 0] = 0;
-                map[1 + descend, 0] = 0;
-                map[2 + descend, 0] = 0;
-                descend++;
+                    map[0 + descend, 1] = 1;
+                    map[0 + descend, 2] = 1;
+                    map[1 + descend, 2] = 1;
 
+                    tickExec();
+                    if (1 + descend == 9 || map[2 + descend, 2] == 1)
+                    {
+                        end = true;
+                        break;
+                    }
+                    map[0 + descend, 1] = 0;
+                    map[0 + descend, 2] = 0;
+                    map[1 + descend, 2] = 0;
+                    descend++;
+                    tick = 0;
+                }
+            }
+        }
+
+        private void linha()
+        {
+            int tick = 0;
+
+            int descend = 0;
+            bool end = false;
+            while (!end)
+            {
+                tick++;
+                if (tick == 270000000)
+                {
+                    map[0 + descend, 0] = 1;
+                    map[1 + descend, 0] = 1;
+                    map[2 + descend, 0] = 1;
+
+                    tickExec();
+                    if (2 + descend == 9 || map[3 + descend, 0] == 1)
+                    {
+                        end = true;
+                        break;
+                    }
+                    map[0 + descend, 0] = 0;
+                    map[1 + descend, 0] = 0;
+                    map[2 + descend, 0] = 0;
+                    descend++;
+                    tick = 0;
+                }
             }
         }
 
@@ -93,7 +122,7 @@ namespace Tetris
                 for (int j = 0; j < 10; j++)
                 {
 
-                    if (map[i,j] == 0)
+                    if (map[i, j] == 0)
                     {
                         sb.Append("░");
                     }
@@ -103,7 +132,7 @@ namespace Tetris
                     }
 
                 }
-                    sb.AppendLine();
+                sb.AppendLine();
 
             }
 
@@ -111,10 +140,10 @@ namespace Tetris
         }
 
 
-    
+
     }
 
 
-    
+
 
 }
