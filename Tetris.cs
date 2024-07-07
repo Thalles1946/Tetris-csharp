@@ -64,7 +64,6 @@ namespace Tetris
 
         private void tInvertido()
         {
-            int tick = 0;
             ConsoleKeyInfo arrow;
 
             int lado = 0;
@@ -72,16 +71,14 @@ namespace Tetris
             bool end = false;
             while (!end)
             {
-                tick++;
-                if (tick == 270000000)
-                {
+                
                     map[0 + descend, 4+lado] = 1;
                     map[1 + descend, 3 + lado] = 1;
                     map[1 + descend, 4 + lado] = 1;
                     map[1 + descend, 5 + lado] = 1;
 
                     tickExec();
-                    if (1 + descend == 9 || map[2 + descend, 4 + lado] == 1)
+                    if (1 + descend == 9 || map[2 + descend, 4 + lado] == 1 || map[2 + descend, 3 + lado] == 1 || map[2 + descend, 5 + lado] == 1)
                     {
                         end = true;
                         break;
@@ -91,10 +88,9 @@ namespace Tetris
                     map[1 + descend, 4 + lado] = 0;
                     map[1 + descend, 5 + lado] = 0;
                     descend++;
-                    tick = 0;
                     arrow = Console.ReadKey();
 
-                    if (2 + lado != 9 && 2 + lado != 0)
+                    if (2 + lado != 9 && 3 + lado != 0)
                     {
                         switch (arrow.Key)
                         {
@@ -106,13 +102,11 @@ namespace Tetris
                                 break;
                         }
                     }
-                }
             }
         }
 
         private void canto()
         {
-            int tick = 0;
             ConsoleKeyInfo arrow;
 
             int lado = 0;
@@ -120,15 +114,13 @@ namespace Tetris
             bool end = false;
             while (!end)
             {
-                tick++;
-                if (tick == 270000000)
-                {
+                
                     map[0 + descend, 1+lado] = 1;
                     map[0 + descend, 2 + lado] = 1;
                     map[1 + descend, 2 + lado] = 1;
 
                     tickExec();
-                    if (1 + descend == 9 || map[2 + descend, 2 + lado] == 1)
+                    if (1 + descend == 9 || map[2 + descend, 2 + lado] == 1 || map[1 + descend, 1 + lado] == 1)
                     {
                         end = true;
                         break;
@@ -137,7 +129,6 @@ namespace Tetris
                     map[0 + descend, 2 + lado] = 0;
                     map[1 + descend, 2 + lado] = 0;
                     descend++;
-                    tick = 0;
                     arrow = Console.ReadKey();
 
                     if (2 + lado != 9 && 2 + lado != 0)
@@ -152,7 +143,6 @@ namespace Tetris
                                 break;
                         }
                     }
-                }
                 
 
 
@@ -161,7 +151,6 @@ namespace Tetris
 
         private void linha()
         {
-            int tick = 0;
             int lado = 0;
             ConsoleKeyInfo arrow;
 
@@ -169,9 +158,7 @@ namespace Tetris
             bool end = false;
             while (!end)
             {
-                tick++;
-                if (tick == 270000000)
-                {
+             
                     map[0 + descend, 0+lado] = 1;
                     map[1 + descend, 0 + lado] = 1;
                     map[2 + descend, 0 + lado] = 1;
@@ -186,7 +173,6 @@ namespace Tetris
                     map[1 + descend, 0 + lado] = 0;
                     map[2 + descend, 0 + lado] = 0;
                     descend++;
-                    tick = 0;
                     arrow = Console.ReadKey();
 
                     if (2 + lado != 9 && 2 + lado != 0)
@@ -201,7 +187,6 @@ namespace Tetris
                                 break;
                         }
                     }
-                }
             }
         }
 
